@@ -1,24 +1,24 @@
-// header files
+
 #include <stdio.h>
 #include <stdlib.h>
 
-// global variables
-int menuOption, process = 0;
 
-// array and its properties
+int menuOption;
+
+
 struct array
 {
     int counter;
     int array1[10];
 } a1;
 
-// setting value of variables inside the struct
+
 void setValues()
 {
     a1.counter = 0;
 }
 
-// main menu
+
 int menu()
 {
     printf("Press 1 for insertion\n");
@@ -37,7 +37,7 @@ int menu1()
     scanf("%d", &menuOption);
 }
 
-// operation functions
+
 void printArr()
 {
     if (a1.counter == 0)
@@ -54,6 +54,33 @@ void printArr()
         printf("%d\n", a1.array1[a1.counter - 1]);
     }
     printf("\n");
+}
+
+void swap(int *xp, int *yp)
+{
+    int temp = *xp;
+    *xp = *yp;
+    *yp = temp;
+}
+ 
+void selectionSort()
+{
+    int i, j, min_idx;
+ 
+   
+    for (i = 0; i < a1.counter -1; i++)
+    {
+
+        min_idx = i;
+        for (j = i+1; j < a1.counter; j++)
+          if (a1.array1[j] < a1.array1[min_idx])
+            min_idx = j;
+ 
+        
+           if(min_idx != i)
+            swap(&a1.array1[min_idx], &a1.array1[i]);
+    }
+    printArr();
 }
 
 int insertion()
@@ -183,28 +210,11 @@ insertDeleteCheckpoint:
     }
 }
 
-int traversing()
-{
-    int index;
-insertTraverseCheckpoint:
-    printf("Enter the index of the element\n");
-    scanf("%d", &index);
-    if (index >= 0 && index <= a1.counter)
-    {
-        printf("%d", a1.array1[index]);
-    }
-    else
-    {
-        printf("Index out of range");
-        goto insertTraverseCheckpoint;
-    }
-    printArr();
-}
 
-int traversing2(){
+int traversing(){
     for (int i = 0; i < a1.counter; i++)
     {
-        printf("%d\n",i);
+        printf("%d ",i);
     }
     printArr();
 }
@@ -290,13 +300,13 @@ showMenu:
             deletion();
             break;
         case 3:
-            traversing2();
+            traversing();
             break;
         case 4:
             searching();
             break;
         case 5:
-            sorting();
+            selectionSort();
             break;
         case 9:
             exit(0);
@@ -308,7 +318,7 @@ showMenu:
         }
     }
 
-    // making sure our menu runs inside a loop
+    
     goto showMenu;
     return 0;
 }

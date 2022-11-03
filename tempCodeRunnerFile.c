@@ -1,0 +1,3 @@
+while (process==0)
+    // {
+    // }
